@@ -74,7 +74,7 @@ export default {
   methods: {
     async userLogin() {
       try {
-        const response = await this.$auth.loginWith('local', {
+        await this.$auth.loginWith('local', {
           data: {
             client_id: this.login.email,
             client_secret: this.login.password

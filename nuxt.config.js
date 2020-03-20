@@ -60,7 +60,7 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: 'http://localhost:8000/api/authorize',
+            url: process.env.VUE_APP_API_AUTH_URL,
             method: 'post',
             propertyName: 'token'
           },
