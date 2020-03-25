@@ -50,6 +50,13 @@ export default {
     '@nuxtjs/apollo',
     '@nuxtjs/auth'
   ],
+  // env vars doesnt work as runtime vars
+  // https://github.com/nuxt/nuxt.js/issues/5100
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    authApiUrl: process.env.API_AUTH_URL,
+    graphqlServer: process.env.GRAPHQL_SERVER
+  },
   apollo: {
     clientConfigs: {
       default: '~/plugins/apollo.config.js'
@@ -60,7 +67,8 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: process.env.VUE_APP_API_AUTH_URL,
+            url:
+              process.env.authApiUrl || 'http://localhost:8000/api/authorize',
             method: 'post',
             propertyName: 'token'
           },
@@ -72,7 +80,8 @@ export default {
     }
   },
   router: {
-    middleware: ['auth']
+    middleware: ['auth'],
+    mode: 'history'
   },
   /*
    ** Axios module configuration

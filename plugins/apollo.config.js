@@ -3,7 +3,7 @@ import { ApolloLink } from 'apollo-link'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const httpLink = createHttpLink({
-  uri: process.env.VUE_APP_GRAPHQL_SERVER
+  uri: process.env.graphqlServer || 'http://localhost:8000/graphql'
 })
 
 const authMiddleware = new ApolloLink((operation, forward) => {
