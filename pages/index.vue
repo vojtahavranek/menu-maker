@@ -1,45 +1,39 @@
 <template>
-  <div>
-    <h2>Choose recipe</h2>
-    <recipe-list :recipes="recipes"></recipe-list>
-  </div>
+  <v-container>
+    <v-row>
+      <v-btn
+        v-for="button in buttons"
+        :key="button.route"
+        :to="`/${button.route}`"
+        nuxt
+        block
+        x-large
+        >{{ button.title }}</v-btn
+      >
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import gql from 'graphql-tag'
-import RecipeList from '../components/recipe/list/index'
-
 export default {
-  name: 'MakeMenu',
-  components: { RecipeList },
-  data() {
+  name: 'Home',
+  data: () => {
     return {
-      recipes: []
-    }
-  },
-  apollo: {
-    recipes: {
-      query: gql`
-        query {
-          makemenu {
-            name
-            rating
-            description
-            image
-            author
-          }
+      buttons: [
+        {
+          title: 'Co mám uvařit?',
+          route: 'choose-menu'
+        },
+        {
+          title: 'Uvařil jsem si ...',
+          route: 'cook-recipe'
+        },
+        {
+          title: 'Přidat recept',
+          route: 'recipe/add'
         }
-      `,
-      update: (data) => data.makemenu
+      ]
     }
-  },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      /* api.query()
-            .then((response) => {
-            vm.recipes = response.data.makemenu;
-        }); */
-    })
   }
 }
 </script>

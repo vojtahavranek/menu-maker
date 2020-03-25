@@ -52,7 +52,7 @@
 <script>
 export default {
   name: 'LogIn',
-  auth: false,
+  auth: 'guest',
   data() {
     return {
       login: {
