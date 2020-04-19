@@ -15,6 +15,7 @@
             name="email"
             label="E-mail"
             outlined
+            validate-on-blur
           ></v-text-field>
         </v-col>
 
@@ -28,6 +29,7 @@
             label="Heslo"
             hint="Vložte alespoň 8 znaků"
             outlined
+            validate-on-blur
             @click:append="show = !show"
           ></v-text-field>
         </v-col>

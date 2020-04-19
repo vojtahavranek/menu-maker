@@ -1,15 +1,17 @@
 <template>
   <v-container>
     <v-row>
-      <v-btn
+      <v-col
         v-for="button in buttons"
         :key="button.route"
-        :to="`/${button.route}`"
-        nuxt
-        block
-        x-large
-        >{{ button.title }}</v-btn
+        cols="12"
+        sm="6"
+        mb="1"
       >
+        <v-btn :to="`/${button.route}`" nuxt block x-large>{{
+          button.title
+        }}</v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>

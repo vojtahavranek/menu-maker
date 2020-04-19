@@ -55,7 +55,9 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     authApiUrl: process.env.API_AUTH_URL,
-    graphqlServer: process.env.GRAPHQL_SERVER
+    graphqlServer: process.env.GRAPHQL_SERVER,
+    cloudinaryUrl: process.env.CLOUDINARY_URL,
+    uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET
   },
   apollo: {
     clientConfigs: {

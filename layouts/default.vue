@@ -1,7 +1,9 @@
 <template>
   <v-app dark>
     <TopMenu />
-    <nuxt />
+    <v-container id="main-container" fluid>
+      <nuxt />
+    </v-container>
     <BottomMenu />
   </v-app>
 </template>
@@ -16,4 +18,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#main-container {
+  max-width: 600px;
+}
+</style>
