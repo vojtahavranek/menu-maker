@@ -1,0 +1,9 @@
+query {
+  makemenu {
+    name
+    rating
+    description
+    image
+    author
+  }
+}

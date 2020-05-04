@@ -32,12 +32,21 @@
           >
         </v-col>
       </v-row>
+      <v-snackbar v-model="snackbar.show" top color="success">
+        Recept byl vytvořen.
+        <!--        <nuxt-link to="/recipe/test">Přejít na recept</nuxt-link>-->
+      </v-snackbar>
+      <v-snackbar v-model="errorSnackbar" top color="error">
+        Recept se nepodařilo vytvořit, zkuste to prosím znovu nebo později.
+      </v-snackbar>
     </v-container>
   </v-form>
 </template>
 
 <script>
 import axios from 'axios'
+import gql from 'graphql-tag'
+import CREATE_RECIPE from '~/graphql/mutation/CreateRecipe.gql'
 
 export default {
   name: 'RecipeAdd',
@@ -51,7 +60,12 @@ export default {
       rules: {
         required: (value) => !!value || 'Povinná položka.',
         min: (v) => v.length >= 8 || 'Minimálně 8 znaků'
-      }
+      },
+      snackbar: {
+        show: false,
+        recipeUrl: ''
+      },
+      errorSnackbar: false
     }
   },
   methods: {
@@ -59,6 +73,15 @@ export default {
       this.recipe.image = file
     },
     async createRecipe() {
+      this.$nuxt.$loading.start()
+      const originalRecipe = this.recipe
+      const recipe = this.recipe
+      this.recipe = {
+        name: '',
+        description: '',
+        image: false
+      }
+
       if (this.recipe.image !== false) {
         const formData = new FormData()
         formData.append('file', this.recipe.image, this.recipe.image.name)
@@ -70,13 +93,29 @@ export default {
             `${process.env.CLOUDINARY_URL}image/upload`,
             formData
           )
-
-          window.console.log(response)
-          window.console.log(response.data.public_id)
+          recipe.image = response.data.secure_url
         } catch (e) {
           window.console.log(e)
         }
       }
+
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            ${CREATE_RECIPE}
+          `,
+          variables: {
+            recipe
+          }
+        })
+        .then((data) => {
+          this.$nuxt.$loading.finish()
+          this.snackbar.show = true
+        })
+        .catch(() => {
+          this.recipe = originalRecipe
+          this.$nuxt.$loading.finish()
+        })
     }
   }
 }

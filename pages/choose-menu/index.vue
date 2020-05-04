@@ -8,6 +8,7 @@
 <script>
 import gql from 'graphql-tag'
 import RecipeList from '../../components/recipe/list/index'
+import MAKE_MENU from '~/graphql/query/makeMenu.gql'
 
 export default {
   name: 'MakeMenu',
@@ -20,15 +21,7 @@ export default {
   apollo: {
     recipes: {
       query: gql`
-        query {
-          makemenu {
-            name
-            rating
-            description
-            image
-            author
-          }
-        }
+        ${MAKE_MENU}
       `,
       update: (data) => data.makemenu
     }

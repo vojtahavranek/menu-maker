@@ -1,0 +1,4 @@
+mutation recipeAdd ($recipe: RecipeInput!){
+  addRecipe (recipe: $recipe)
+}
+
