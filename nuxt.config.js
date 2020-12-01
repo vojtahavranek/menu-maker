@@ -3,7 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   mode: 'universal',
   /*
-   ** Headers of the page
+   ** Headers of the page //
    */
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
